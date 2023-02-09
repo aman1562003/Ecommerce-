@@ -9,7 +9,8 @@ urlpatterns = [
     path('login/', views.home, name ='home' ),
     path('product/',include('product.urls')),
     path('product/productdata/', views.productdata, name='productdata'),
+    path('product/profile1/',views.profile2,name = 'profile2' ),
     path('profile/',views.profile,name='profile'),
-   
     
+   
 ]
