@@ -131,7 +131,7 @@
 
 
 
-        <header class="p-3 text-bg-dark">
+        <header class="p-3 text-bg-dark"style="background: repeating-linear-gradient(34deg, black, transparent 100px);background-attachment: fixed;table-layout: fixed;position: fixed;/* display: grid; */display: block;width: 100%;/* background: linear-gradient(0deg, black, transparent); */">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -173,18 +173,46 @@
         </header>
 
 
-
+        <div style = "
+        height: calc(100vh - 56vw);" >
+             
+        </div> 
     </main>
 
-    {% if user.is_authenticated %}
+    <!-- {% if user.is_authenticated %}
         <p> you are logged In </p>
         <p> welcome: {{user.get_username}} </P>
         
     {% else %}
         <p> you are not logged in </p>
         
-    {% endif %}
-
+    {% endif %} -->
+    <div >
+        <div class="flex" style="
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-content: center;
+        justify-content: space-between;
+        align-items: stretch;
+    ">
+        {% for product in product_list %}
+            
+            <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden"style="
+                max-width: 30vw;
+                max-height: 100%;
+                margin: 16px;
+                ">
+                <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}" style="    max-width: 100%;
+                max-height: 100%;"class="bg-light shadow-sm mx-auto"/>
+                <div  >
+                    {{ product.product_name}}
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </div>
 
 
 </body>

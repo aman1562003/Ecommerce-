@@ -6,9 +6,8 @@ from django.views.generic import CreateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from product.views import productdata, profile2
-
-# from product.models import productdata
+from product.views import productdata, profile2, userdata
+from product.models import Productdata
 # Create your views here.
 
 @login_required
@@ -24,7 +23,13 @@ class SignUpView(CreateView):
 
 def home(request):
     print(1)
-    return render(request,'catalog/home.html')   
+    product_list = Productdata.objects.all()
+    context = {
+        'product_list': product_list,
+    }
+    return render(request,'catalog/home.html', context)   
+
+
 
 
 
