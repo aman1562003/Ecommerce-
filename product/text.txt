@@ -1,0 +1,66 @@
+def productview(request):
+    if request.method == 'POST':
+        
+        print(0)
+        if 'form_submit' in request.POST:
+            form = BuyProductForm(request.POST, request.FILES)
+            if form.is_valid():  
+                userdetail = userdetails.objects.get(user=request.user)
+                buydetail = form.save(commit=False)
+                buydetail.user = request.user
+                buydetail.product_name = form.cleaned_data['product_name']
+                buydetail.seller_username = form.cleaned_data['seller_username']
+                buydetail.name = userdetail.name
+                buydetail.phone =  userdetail.phone
+                buydetail.address1 =  userdetail.address1
+                buydetail.address2 =  userdetail.address2
+                buydetail.pincode  =  userdetail.pincode
+                buydetail.city     =  userdetail.city
+                buydetail.country  =  userdetail.country 
+                print(form.cleaned_data)
+                print(request.FILES)
+                
+                buydetail.save()
+                print(1)
+                return redirect(reverse('product:product'))
+        else:
+            print(3)
+            form = BuyProductForm(instance=request.user)
+            
+            product_list = Productdata.objects.all()
+            
+            messages.error(request, "Error Occured while submitting data")
+            return render(request,'product/Product.html', context={'form':form,'product_list': product_list} )
+               
+
+    else:
+        form = BuyProductForm(request.POST,instance=request.user)
+      
+        print(2)
+        product_list = Productdata.objects.all()
+        
+        contexts = None
+        return render(request,'product/Product.html', context={'form':form,'product_list': product_list} )
+
+
+
+
+
+
+
+
+
+class BuyProduct(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product_name = models.CharField(max_length=200,null=True,blank=True)
+    seller_username = models.CharField(max_length=200,null=True,blank=True)
+    name = models.CharField(max_length=200,null=True,blank=True) 
+    phone = models.CharField(max_length=20,null=True,blank=True)
+    address1 = models.CharField(max_length=200,null=True,blank=True)
+    address2 = models.CharField(max_length=200,null=True,blank=True)
+    pincode = models.CharField(max_length=20,null=True,blank=True)
+    city = models.CharField(max_length=100,null=True,blank=True)
+    country = models.CharField(max_length=20,null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.user.username}"

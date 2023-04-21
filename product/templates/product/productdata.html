@@ -61,23 +61,7 @@
             fill: currentColor;
         }
 
-        .nav-scroller {
-            position: relative;
-            z-index: 2;
-            height: 2.75rem;
-            overflow-y: hidden;
-        }
-
-        .nav-scroller .nav {
-            display: flex;
-            flex-wrap: nowrap;
-            padding-bottom: 1rem;
-            margin-top: -1px;
-            overflow-x: auto;
-            text-align: center;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
+        
 
         .form-control-dark {
             border-color: var(--bs-gray);
@@ -92,9 +76,32 @@
             font-size: 85%;
         }
 
-        .dropdown-toggle {
-            outline: 0;
+        body {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        color: #5a5a5a;
         }
+        @media (min-width: 992px){
+        .container, .container-lg, .container-md, .container-sm {
+        max-width: fit-content;
+        }
+        }
+        @media (min-width: 768px){
+        .container, .container-md, .container-sm {
+         max-width: fit-content;
+        }
+        
+    }
+    @media (min-width: 767px){
+        .mb-lg-01 {
+            margin-bottom: 0!important;
+        }
+      }
+      @media (min-width: 767px){
+        .me-lg-3 {
+            margin-right: 1rem!important;
+        }
+    }
     </style>
 </head>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -131,63 +138,59 @@
 
 
 <body>
-    <header class="p-3 text-bg-dark"style="background: repeating-linear-gradient(34deg, black, transparent 100px);background-attachment: fixed;table-layout: fixed;position: fixed;/* display: grid; */display: block;width: 100%;/* background: linear-gradient(0deg, black, transparent); */">
-        <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
-                </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'profile2' %}" class="nav-link px-2 text-white">Profile</a></li>
-                    <li><a href="" class="nav-link px-2 text-secondary">Add product</a></li>
-                    {% endif %}
-                    <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-                </ul>
-
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                        aria-label="Search">
-                </form>
-                {% if user.is_authenticated %}
-                <div class="text-end">
-                    <a href="{% url 'logout' %}?next={{'/'}}"> <button type="button"
-                            class="btn btn-outline-light me-2">logout</button> </a>
-                </div>
-                {% else %}
-                <div class="text-end">
-                    <a href="{% url 'login' %}?next={{request.path}}"> <button type="button"
-                            class="btn btn-outline-light me-2">Login</button></a>
-                    <a href="signup/"> <button type="button" class="btn btn-warning">Sign-up</button></a>
-                </div>
-                {% endif %}
-
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Project!1</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                  <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+                  {% if user.is_authenticated %}
+                  <li><a href="{% url 'profile2' %}" class="nav-link px-2 text-white">Profile</a></li>
+                  <li><a href="{% url 'productdata' %}" class="nav-link px-2 text-secondary">Add product</a>
+                  </li>
+                  {% endif %}
+                  <li><a href="{% url 'Product' %}" class="nav-link px-2 text-white">Product</a></li>
+                  <li><a href="/#about" class="nav-link px-2 text-white">About</a></li>
+              </ul>
+              <form class="col-lg-auto mb-3 mb-lg-01 me-lg-3" role="search">
+                  <input type="search" class="form-control form-control-dark text-bg-dark"
+                      placeholder="Search..." aria-label="Search">
+              </form>
+              {% if user.is_authenticated %}
+              <div class="text-end">
+                  <a href="{% url 'logout' %}?next={{'/'}}"> <button type="button"
+                          class="btn btn-outline-light me-2">logout</button> </a>
+              </div>
+              {% else %}
+              <div class="text-end">
+                  <a href="{% url 'login' %}?next={{request.path}}"> <button type="button"
+                          class="btn btn-outline-light me-2">Login</button></a>
+                  <a href="signup/"> <button type="button" class="btn btn-warning">Sign-up</button></a>
+              </div>
+              {% endif %}
             </div>
-        </div>
-    </header>
-
+          </div>
+        </nav>
+</header>
+    
     <main>
-        <div style = "    
-        height: calc(100vh - 56vw);
-    " >
+        
              
         </div> 
-        <div>
-            <div class='form' style=" display: flex; ">
-                <form method="POST" enctype="multipart/form-data" style="background-color: aliceblue;
-            display: inline-grid;
-            justify-items: stretch;
-            padding: 25px;
-            /* box-shadow: 20px 18px 6px 0px rgb(0 0 0 / 61%); */
-            ">
-                    {% csrf_token %}
+        
+        <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+            <div class="row align-items-center g-lg-5 py-5">
+              <div class="col-lg-7 text-center text-lg-start">
+                <h1 class="display-4 fw-bold lh-1 mb-3">Product details form</h1>
+                <p class="col-lg-10 fs-4"> Here your have to submit full details of your product or products. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+              </div>
+              <div class="col-md-10 mx-auto col-lg-5">
+                <form class="p-4 p-md-5 border rounded-3 bg-light" method="POST" enctype="multipart/form-data" style="background-color: rgba(240, 248, 255, 0.565);display: inline-grid;justify-items: stretch;padding: 25px;">
+                  {% csrf_token %}
                     {% for field in form %}
                     <div class='mb-3' style='margin: 0!important'>
                         {{field.label_tag}}
@@ -208,8 +211,9 @@
                     {% endfor %}
                     <input type="submit" style="margin: 14px;padding: 15px;">
                 </form>
+              </div>
             </div>
-        </div>
+          </div>
     </main>
 
     <script src="" async defer></script>

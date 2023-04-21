@@ -9,13 +9,38 @@
     <meta name="generator" content="Hugo 0.108.0">
     <!-- <title>Headers · Bootstrap v5.3</title> -->
 
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+    <script>
+        /* JavaScript code for the dropdown button */
+        document.querySelector('.dropdown-btn').addEventListener('click', function () {
+            document.querySelector('.menu').classList.toggle('active');
+        });
+        // Get the dropdown button element
+        var dropdownBtn = document.querySelector('.dropdown-toggle');
+
+        // Add a click event listener to the dropdown button
+        dropdownBtn.addEventListener('click', function () {
+            // Toggle the 'show' class on the dropdown menu
+            document.querySelector('.dropdown-menu').classList.toggle('show');
+        });
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.addEventListener('click', function (e) {
+            if (!e.target.matches('.dropdown-toggle')) {
+                var dropdownMenu = document.querySelector('.dropdown-menu');
+                if (dropdownMenu.classList.contains('show')) {
+                    dropdownMenu.classList.remove('show');
+                }
+            }
+        });
+
+    </script>
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -84,6 +109,132 @@
         .dropdown-toggle {
             outline: 0;
         }
+
+        /* Default styles for the dropdown button */
+        .dropdown-btn {
+            display: none;
+            /* hide the button by default */
+        }
+
+        /* Default styles for the menu items */
+        .menu {
+            display: block;
+            /* show the menu items by default */
+        }
+
+        /* Styles for the dropdown button when the screen size is small */
+        @media screen and (max-width: 768px) {
+            .dropdown-btn {
+                display: block;
+                /* show the button when the screen size is small */
+            }
+
+            .menu {
+                display: none;
+                /* hide the menu items when the screen size is small */
+            }
+        }
+
+        .dropdown-menu {
+            background-color: #fff;
+            border: none;
+            border-radius: 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-item {
+            color: #333;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .cube {
+          width: 100px;
+          height: 100px;
+          position: relative;
+          transform-style: preserve-3d;
+          animation: spin 5s linear infinite;
+        }
+
+        .side {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          background-color: #ccc;
+          opacity: 0.8;
+        }
+
+        .front {
+          transform: translateZ(50px);
+        }
+
+        .back {
+          transform: translateZ(-50px) rotateY(180deg);
+        }
+
+        .left {
+          transform: translateX(-50px) rotateY(-90deg);
+        }
+
+        .right {
+          transform: translateX(50px) rotateY(90deg);
+        }
+
+        .top {
+          transform: translateY(-50px) rotateX(90deg);
+        }
+
+        .bottom {
+          transform: translateY(50px) rotateX(-90deg);
+        }
+
+        @keyframes spin {
+          from {
+            transform: rotateY(0);
+          }
+          to {
+            transform: rotateY(360deg);
+          }
+        }
+.cloud {
+  width: 150px;
+  height: 100px;
+  background-color: rgb(122, 122, 122);
+  border-radius: 50px;
+  position: relative;
+}
+
+.cloud:before,
+.cloud:after,
+.cloud:after {
+  content: "";
+  position: absolute;
+  background-color: rgb(161, 161, 161);
+  border-radius: 50%;
+}
+
+.cloud:before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 30px;
+}
+
+.cloud:after {
+  width: 70px;
+  height: 70px;
+  top: -15px;
+  left: 60px;
+}
+.cloud::shadow {
+  width: 100px;
+  height: 70px;
+  top: -15px;
+  left: 60px;
+}
+
     </style>
 
 
@@ -131,7 +282,8 @@
 
 
 
-        <header class="p-3 text-bg-dark">
+        <header class="p-3 text-bg-dark"
+            style="background: repeating-linear-gradient(34deg, black, transparent 100px);background-attachment: fixed;table-layout: fixed;position: fixed;/* display: grid; */display: block;width: 100%;/* background: linear-gradient(0deg, black, transparent); */">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                     <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -139,52 +291,162 @@
                             <use xlink:href="#bootstrap" />
                         </svg>
                     </a>
+                    <!-- <button class="dropdown-btn">Menu</button> -->
+                    <div class="menu col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
+                            <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                            {% if user.is_authenticated %}
+                            <li><a href="{% url 'profile2' %}" class="nav-link px-2 text-white">Profile</a></li>
+                            <li><a href="{% url 'productdata' %}" class=" nav-link px-2 text-white">Add product</a></li>
+                            <li><a href="{% url 'Product' %}" class="nav-link px-2 text-white">Product</a></li>
+                            {% endif %}
+                            <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+                            <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+                            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                            <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                        </ul>
+                    </div>
+                    
+                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                            <input type="search" class="form-control form-control-dark text-bg-dark"
+                                placeholder="Search..." aria-label="Search">
+                        </form>
 
-                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+                        <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"style="display: flex; flex-direction: row; justify-content: space-between;">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle dropdown-btn btn-outline-light me-2"
+                                    type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Menu
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Home</a></li>
+                                    
+                                    {% if user.is_authenticated %}
+                                    <li><a href="{% url 'profile2' %}" class=" dropdown-item">Profile</a></li>
+                                    <!-- <li><a href="{% url 'productdata' %}" class=" dropdown-item">Add product</a></li> -->
+                                    {% endif %}
+                                    <li><a class="dropdown-item" href="{% url 'Product' %}">Product</a></li>
+                                    <li><a class="dropdown-item" href="#">Features</a></li>
+                                    <li><a class="dropdown-item" href="#">Pricing</a></li>
+                                    <li><a class="dropdown-item" href="#">FAQs</a></li>
+                                    <li><a class="dropdown-item" href="#">About</a></li>
+                                </ul>
+                            </div>
+
+                    {% if user.is_authenticated %}
+                    <div class="text-end">
+                        <a href="{% url 'logout' %}?next={{request.path}}"> <button type="button"
+                                class="btn btn-outline-light me-2">logout</button> </a>
+                    </div>
+                    {% else %}
+                    <div class="text-end">
+                        <a href="{% url 'login' %}?next={{request.path}}"> <button type="button"
+                                class="btn btn-outline-light me-2">Login</button></a>
+                        <a href="signup/"> <button type="button" class="btn btn-warning">Sign-up</button></a>
+                    </div>
+                    {% endif %}
+
+
+                        </div>
+
+                </div>
+            </div>
+        </header>
+        <div class="container p-3 mb-3">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+                <div class="menu col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 ">
+                        <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
                         {% if user.is_authenticated %}
-                        <li><a href="{% url 'profile2' %}" class="nav-link px-2 text-white">Profile</a></li>
+                        <li><a href="" class="nav-link px-2 text-secondary">Profile</a></li>
+                        <li><a href="{% url 'productdata' %}" class="nav-link px-2 text-white">Add product</a>
+                        </li>
                         {% endif %}
+                        <li><a href="{% url 'Product' %}" class="nav-link px-2 text-white">Product</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">About</a></li>
                     </ul>
-
-                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                        <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..."
-                            aria-label="Search">
-                    </form>
-                    {% if user.is_authenticated %}
-                        <div class="text-end">
-                            <a href="{% url 'logout' %}?next={{request.path}}"> <button type="button"
-                                class="btn btn-outline-light me-2">logout</button> </a>
-                            </div>
-                    {% else %}
-                        <div class="text-end">
-                            <a href="{% url 'login' %}?next={{request.path}}"> <button type="button"
-                                class="btn btn-outline-light me-2">Login</button></a>
-                            <a href="signup/"> <button type="button" class="btn btn-warning">Sign-up</button></a>
-                        </div>
-                    {% endif %}
-
                 </div>
+    
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                    <input type="search" class="form-control form-control-dark text-bg-dark"
+                        placeholder="Search..." aria-label="Search">
+                </form>
+                {% if user.is_authenticated %}
+                <div class="text-end">
+                    <a href="{% url 'logout' %}?next={{'/'}}"> <button type="button"
+                            class="btn btn-outline-light me-2">logout</button> </a>
+                </div>
+                {% else %}
+                <div class="text-end">
+                    <a href="{% url 'login' %}?next={{request.path}}"> <button type="button"
+                            class="btn btn-outline-light me-2">Login</button></a>
+                    <a href="signup/"> <button type="button" class="btn btn-warning">Sign-up</button></a>
+                </div>
+                {% endif %}
+                </div>
+    
             </div>
-        </header>
+        </div>
 
-
-
+        
     </main>
 
-    {% if user.is_authenticated %}
-        <p> you are logged In </p>
-        <p> welcome: {{user.get_username}} </P>
-        
-    {% else %}
-        <p> you are not logged in </p>
-        
-    {% endif %}
+    <div>
+        <container>
+            op
+        </container>       
+    </div>
 
+    <div style="display: flex;margin-top: 122px;align-items: center;flex-direction: column;">
+
+        <div class="cube" >
+        
+        <div class="side front">Front</div>
+        <div class="side back">Back</div>
+        <div class="side left">Left</div>
+        <div class="side right">Right</div>
+        <div class="side top">Top</div>
+        <div class="side bottom">Bottom</div>
+        
+      </div>
+      
+      
+    </div>
+    <!-- {% for product in product_list %}
+                <form method="POST" enctype="multipart/form-data" style="
+                margin: 10px;
+            ">
+                <div class="text-bg-white  text-center overflow-hidden mx-auto" style="
+                max-width: 33vh;
+                max-height: 100%;
+                margin: 16px;
+                background-color: #d4d4d4;
+                box-shadow: 6px 6px 0.4rem 0.2rem #0000009e;
+                padding-top: 10px;
+                ">
+                    <a href="{{product.product_image.url}}" class="nav-link px-2 text-white">
+                        <div
+                            style="background-image: url({{product.product_image.url}});max-width: 100%; max-height: 100%;background-size:  cover;">
+                            <div style="height: 250px;width: 250vh;"></div>
+                        </div>
+                    </a>
+                    <div>
+                        {{ product.user.username }}
+                        {{product.product_name}}
+                    </div>
+                    {% csrf_token %}
+                    </div>
+            </form>
+                {% endfor %} -->
+    
 
 
 </body>

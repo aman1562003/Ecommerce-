@@ -11,7 +11,8 @@ urlpatterns = [
     path('product/productdata/', views.productdata, name='productdata'),
     path('product/profile2/',views.profile2,name = 'profile2' ),
     path('product/editprofile/',views.userdata,name = 'editprofile' ),
+    path('product/business/',views.businessdata, name = 'business'),
     path('profile/',views.profile,name='profile'),
-    
+    path('product/Product/',views.productview,name='Product'),
    
 ]
